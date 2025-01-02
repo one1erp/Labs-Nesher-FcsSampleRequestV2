@@ -43,9 +43,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dlls\Common.dll</HintPath>
     </Reference>
-    <Reference Include="FcsSampleRequestV2, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+    <Reference Include="DAL, Version=94.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dlls\FcsSampleRequestV2.dll</HintPath>
+      <HintPath>..\..\dlls\DAL.dll</HintPath>
     </Reference>
     <Reference Include="Interop.LSExtensionWindowLib">
       <HintPath>..\..\OrderV2\OrderV2\obj\Debug\Interop.LSExtensionWindowLib.dll</HintPath>
@@ -63,10 +63,6 @@
     <Reference Include="Oracle.DataAccess, Version=4.112.3.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\dlls\Oracle.DataAccess.dll</HintPath>
-    </Reference>
-    <Reference Include="OrderV2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\dlls\OrderV2.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\packages\RestSharp.104.0\lib\net4\RestSharp.dll</HintPath>
@@ -128,12 +124,6 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WebMBriut\WSMisradHabriut.wsdl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\General\DAL\DAL.csproj">
-      <Project>{fb002602-1b33-465b-9414-ad1a8fe98325}</Project>
-      <Name>DAL</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <WebReferenceUrl Include="https://localhost:44343/WSMisradHabriut.asmx">

@@ -24,7 +24,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting;
 using System.Text.RegularExpressions;
-using OrderV2;
+//using OrderV2;
 using System.Xml;
 using System.Data.SqlTypes;
 
@@ -61,12 +61,7 @@ namespace FcsSampleRequestV2
         public event Action<string> NewSdgCreated;
         public bool DEBUG;
         public string barcode;
-        public string U_FCS_MSG_ID;
-        public int sdgId;
-        public string sdgName;
-        public bool _return;
-        public string statusMsg;
-        private List<PhraseEntry> phrases = null;
+
         #endregion
 
         #region initial functions
@@ -199,7 +194,6 @@ namespace FcsSampleRequestV2
                 }
                 _dal = new MockDataLayer();
                 _dal.Connect();
-                phrases = _dal.GetPhraseByName("FCS Parameters").PhraseEntries.ToList();
 
             }
 
@@ -214,7 +208,7 @@ namespace FcsSampleRequestV2
             return Regex.IsMatch(input, pattern);
         }
 
-        private void SendRequest()
+        private void SendRequest2NautilusWS()
         {
             try
             {
@@ -223,7 +217,7 @@ namespace FcsSampleRequestV2
 
                 lblMsg.Text = "Please wait...";
 
-                Debugger.Launch();
+              //  Debugger.Launch();
 
                 if (string.IsNullOrEmpty(textBoxBarcode.Text)) return;
 
@@ -234,14 +228,15 @@ namespace FcsSampleRequestV2
                 if (currentSdg != null)
                 {
                     lblMsg.Text = "דרישה קיימת במערכת";
-                    return;                                     
+                    return;
                 }
 
                 string url = _dal.GetPhraseByName("UrlService_FCS").PhraseEntries
-                    .FirstOrDefault(p => p.PhraseName == "FcsSampleRequest")?.PhraseDescription;
+                    .FirstOrDefault(p => p.PhraseName == "FcsSampleRequest").PhraseDescription;
+
 
                 fullUrl = url + barcode;
-
+                Logger.WriteLogFile("full Url " + fullUrl);
                 //API request
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(fullUrl);
                 request.Method = "POST";
@@ -259,6 +254,7 @@ namespace FcsSampleRequestV2
                         }
                     }
                 }
+                Logger.WriteLogFile($"{apiReqResult}");
                 if (IsXmlFormat(apiReqResult))
                 {
                     if (CreateSdg(apiReqResult))
@@ -276,7 +272,8 @@ namespace FcsSampleRequestV2
             }
             catch (Exception ex)
             {
-                lblMsg.Text = "שגיאה";
+                Logger.WriteLogFile(ex);
+                lblMsg.Text = "שגיאה\n " + ex.Message;
             }
         }
 
@@ -303,7 +300,7 @@ namespace FcsSampleRequestV2
 
             }
 
-
+          
             string suffix = ".xml";
             string savePath = @"c:\temp\";
             try
@@ -313,9 +310,10 @@ namespace FcsSampleRequestV2
                 {
                     string ut = DateTime.UtcNow.ToString("yyyy-MM-dd HH-mm-ss-fff");
 
-                    objDoc.save(directoryPath + "Doc_" + (ut) + suffix);
+                    
+               //     objDoc.save(directoryPath + "Doc_" + (ut) + suffix);
                     savePath = (directoryPath + "Res_" + (ut) + suffix);
-                    objRes.save(savePath);
+                 //   objRes.save(savePath);
                 }
             }
             catch (Exception ex)
@@ -357,9 +355,15 @@ namespace FcsSampleRequestV2
         #region buttons
         public void textBoxBarcode_KeyDown(object sender, KeyEventArgs e)
         {
+
             if (e.KeyCode == Keys.Enter)
             {
-                SendRequest();
+
+                SendRequest2NautilusWS();
+            }
+            else
+            {
+                lblMsg.Text = string.Empty;
             }
         }
         private void btnExt_Click(object sender, EventArgs e)
@@ -368,7 +372,8 @@ namespace FcsSampleRequestV2
         }
         private void btnok_Click(object sender, EventArgs e)
         {
-            SendRequest();
+            Logger.WriteLogFile("btnok_Click Clicked");
+            SendRequest2NautilusWS();
         }
 
 
@@ -376,6 +381,11 @@ namespace FcsSampleRequestV2
         #endregion
 
         private void FcsSampleRequestV2Ctrl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxBarcode_TextChanged(object sender, EventArgs e)
         {
 
         }

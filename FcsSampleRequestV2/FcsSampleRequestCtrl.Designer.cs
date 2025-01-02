@@ -42,12 +42,13 @@
             this.textBoxBarcode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxBarcode.Location = new System.Drawing.Point(128, 76);
+            this.textBoxBarcode.Location = new System.Drawing.Point(84, 76);
             this.textBoxBarcode.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBoxBarcode.MaxLength = 8;
+            this.textBoxBarcode.MaxLength = 20;
             this.textBoxBarcode.Name = "textBoxBarcode";
-            this.textBoxBarcode.Size = new System.Drawing.Size(102, 20);
+            this.textBoxBarcode.Size = new System.Drawing.Size(215, 20);
             this.textBoxBarcode.TabIndex = 1;
+            this.textBoxBarcode.TextChanged += new System.EventHandler(this.textBoxBarcode_TextChanged);
             this.textBoxBarcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBoxBarcode_KeyDown);
             // 
             // label1
@@ -59,9 +60,9 @@
             this.label1.Location = new System.Drawing.Point(128, 35);
             this.label1.Name = "label1";
             this.label1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.label1.Size = new System.Drawing.Size(105, 19);
+            this.label1.Size = new System.Drawing.Size(148, 19);
             this.label1.TabIndex = 2;
-            this.label1.Text = "הזן מס בדיקה:";
+            this.label1.Text = "נא לסרוק את הברקוד.";
             // 
             // btnok
             // 
